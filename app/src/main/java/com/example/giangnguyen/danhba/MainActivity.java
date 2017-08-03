@@ -1,8 +1,10 @@
 package com.example.giangnguyen.danhba;
 
 import android.app.Dialog;
-import android.support.v7.app.AppCompatActivity;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -38,16 +40,13 @@ public class MainActivity extends AppCompatActivity {
                 String name = input_name.getText().toString().trim();
                 String number = input_number.getText().toString().trim();
                 boolean ismale;
-                if(male.isChecked()) ismale = true;
+                if (male.isChecked()) ismale = true;
                 else ismale = false;
 
-                if(TextUtils.isEmpty(name) || TextUtils.isEmpty(number))
-                {
-                    Toast.makeText(MainActivity.this,"Vui lòng nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    danhsach.add(new Contact(name,number,ismale));
+                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(number)) {
+                    Toast.makeText(MainActivity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                } else {
+                    danhsach.add(new Contact(name, number, ismale));
                     list_ct.setAdapter(adapter);
 
                     input_name.getText().clear();
@@ -60,11 +59,34 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 int a = i;
-                dialog(a);
+                alertdialog(a);
             }
 
-            void dialog(int i)
-            {
+            void alertdialog(int i) {
+
+                final int a = i;
+                final AlertDialog.Builder alertdialog = new AlertDialog.Builder(MainActivity.this);
+                alertdialog.setCancelable(false);
+                alertdialog.setTitle("Ahihi");
+                alertdialog.setMessage("Chọn hành động muốn thực hiện");
+                alertdialog.setPositiveButton("GỌI", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(MainActivity.this,danhsach.get(a).getnName(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                alertdialog.setNegativeButton("GỬI SMS", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                AlertDialog aa = alertdialog.create();
+                aa.show();
+            }
+
+            void dialog(int i) {
                 final int a = i;
                 final Dialog dialog = new Dialog(MainActivity.this);
                 dialog.setContentView(R.layout.dialog_layout);
@@ -76,20 +98,16 @@ public class MainActivity extends AppCompatActivity {
                 call.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(MainActivity.this,danhsach.get(a).getnNumber(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, danhsach.get(a).getnNumber(), Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 });
                 dialog.show();
-
-
-
             }
         });
     }
 
-    void anhxa()
-    {
+    void anhxa() {
         list_ct = (ListView) findViewById(R.id.list_ct);
         input_name = (EditText) findViewById(R.id.input_name);
         input_number = (EditText) findViewById(R.id.input_number);

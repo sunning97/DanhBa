@@ -14,7 +14,8 @@
         android:id="@+id/input_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nhập số điện thoại" />
+        android:hint="Nhập số điện thoại"
+        android:inputType="number"/>
     <RadioGroup
         android:orientation="horizontal"
         android:layout_width="match_parent"
