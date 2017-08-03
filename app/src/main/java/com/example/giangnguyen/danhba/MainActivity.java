@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 final int a = i;
                 final AlertDialog.Builder alertdialog = new AlertDialog.Builder(MainActivity.this);
                 alertdialog.setCancelable(false);
-                alertdialog.setTitle("Ahihihi");
+                alertdialog.setTitle("Ahihi");
                 alertdialog.setMessage("Chọn hành động muốn thực hiện");
                 alertdialog.setPositiveButton("GỌI", new DialogInterface.OnClickListener() {
                     @Override
